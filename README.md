@@ -54,10 +54,20 @@ Wiring is relatively simple:
 
 Connect the following pins between the TTGO T8 ESP32 board and your I2S DAC:
 
-| ESP pin |	PCM 5102 I2S signal |
+| ESP pin |	PCM5102 I2S signal |
 | ------------- | ------------- |
-| GPIO25 | LRCK |
-| GPIO25 | DATA IN (DIN) |
-| GPIO26 | BCK |
+| GPIO25 | LCK |
+| GPIO26 | DATA IN (DIN) |
+| GPIO27 | BCK |
+| GND | SCK, GND |
+| 5V | VIN |
 
 ![Schematic for wiring](https://github.com/schreibfaul1/ESP32-audioI2S/raw/master/additional_info/ESP32_I2S_PCM5102A_ONLY.JPG)
+
+Next wire up your TDA8932. This is a bit simpler:
+
+1. The power pins can go to a DC converter. I re-used one from an old laptop. Optimum is 24V at 2amp.
+2. I wired input via two short wires to the PCM5102 board coming off a 3.5mm adapter
+3. Then I soldered on two wires which connect to speaker terminals
+
+Flash your ESP32 using the same process detailed above, and you're all set!
