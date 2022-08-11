@@ -55,6 +55,7 @@ Wiring is relatively simple:
 Connect the following pins between the TTGO T8 ESP32 board and your I2S DAC:
 
 | ESP pin |	PCM 5102 I2S signal |
+| ------------- | ------------- |
 | GPIO25 | LRCK |
 | GPIO25 | DATA IN (DIN) |
 | GPIO26 | BCK |
