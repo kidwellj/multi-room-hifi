@@ -50,7 +50,7 @@ We stream audio to this amplifier using a simple ESP32 WROVER Development Board 
 
 For this build, I found @schreibfaul1's [repository quite helpful](https://github.com/schreibfaul1/ESP32-audioI2S/wiki). There are a fair few youtube videos out there detailing the build as well. 
 
-Wiring is relatively simple:
+### Wiring the device
 
 Connect the following pins between the TTGO T8 ESP32 board and your I2S DAC:
 
@@ -66,8 +66,13 @@ Connect the following pins between the TTGO T8 ESP32 board and your I2S DAC:
 
 Next wire up your TDA8932. This is a bit simpler:
 
-1. The power pins can go to a DC converter. I re-used one from an old laptop. Optimum is 24V at 2amp.
+1. The power pins can go to a DC converter. I re-used one from an old laptop. Optimum is 24V at 2amp. See note below re: DC power.
 2. I wired input via two short wires to the PCM5102 board coming off a 3.5mm adapter
 3. Then I soldered on two wires which connect to speaker terminals
 
 Flash your ESP32 using the same process detailed above, and you're all set!
+
+### DC Power
+
+Sourcing, hacking and making power supplies (PSU) for audio devices is a whole art unto itself. I usually keep a box full of discarded AC adapters from old electronics around the house. This is sifted by voltage, there are low voltage 3.3 or 5V adapters for cell phones and the like with similarly low amperage/wattage ratings. Then there are the bigger "bricks" taken from laptop power adapters, which range up to 90V or even 110V in some cases. There is a whole community around repurposing [old computer power supplies](https://www.instructables.com/Encyclopedia-of-ATX-to-Bench-Power-Supply-Conversi/) as well. This amplifier is small, but it does require some power, so I went with the laptop power brick. This has more power than the amp needs, with the Lenovo PSU I found supplying 90W at 20V or about 4.5A. I only need 2A at 20V, so was wondering if I could bridge over another power wire to USB micro for my ESP32 and save myself a cord. This isn't current sharing, strictly speaking, because I want two different voltages: 3.3V for the ESP32 and as close to 24V as I can get for the amp. So I've aquired a
+couple DC-DC converters to connect to this PSU (via a barrel adapter). This is still WIP, so I'll report back when I've got things up and running.
