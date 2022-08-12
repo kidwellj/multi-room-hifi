@@ -76,3 +76,22 @@ Flash your ESP32 using the same process detailed above, and you're all set!
 
 Sourcing, hacking and making power supplies (PSU) for audio devices is a whole art unto itself. I usually keep a box full of discarded AC adapters from old electronics around the house. This is sifted by voltage, there are low voltage 3.3 or 5V adapters for cell phones and the like with similarly low amperage/wattage ratings. Then there are the bigger "bricks" taken from laptop power adapters, which range up to 90V or even 110V in some cases. There is a whole community around repurposing [old computer power supplies](https://www.instructables.com/Encyclopedia-of-ATX-to-Bench-Power-Supply-Conversi/) as well. This amplifier is small, but it does require some power, so I went with the laptop power brick. This has more power than the amp needs, with the Lenovo PSU I found supplying 90W at 20V or about 4.5A. I only need 2A at 20V, so was wondering if I could bridge over another power wire to USB micro for my ESP32 and save myself a cord. This isn't current sharing, strictly speaking, because I want two different voltages: 3.3V for the ESP32 and as close to 24V as I can get for the amp. So I've aquired a
 couple DC-DC converters to connect to this PSU (via a barrel adapter). This is still WIP, so I'll report back when I've got things up and running.
+
+# Future plans:
+
+- Buy and deploy a Roon server
+- Deploy [HQPlayer](https://audiobacon.net/2021/03/17/hqplayer-better-than-a-5000-upscaler/)
+- 
+- 
+# Resources:
+
+As I've been going along, I've found some pretty helpful resources on the internet. So if you're also planning on diving into DIY Audio, here are the sources I'd recommend:
+
+- The DIYAudio Forum
+- [Slimdevices Forum](https://forums.slimdevices.com/showthread.php?112697-ANNOUNCE-Squeezelite-ESP32-(dedicated-thread)) (for Logitech Squeezebox originally, but now with lots of DIY and home to Squeezelite-ESP32 developers)
+- Github - run a search for your part names and discover previous builds like this one!
+- [Hackaday](https://hackaday.io) - same as above. Lots of interesting builds documented on here
+- [AVForums](https://www.avforums.com) - not as much hacking on here as DIYAudio, but still lots of interesting notes about components and quality
+- [AudioScience Review Forums](https://www.audiosciencereview.com) - seriously exacting standards in terms of audio quality, good discussion on the underlying factors in device performance
+- [DIY Budget Audio blog](https://diybudgetaudio.com)
+- [R/Selfhosted reddit feed](https://www.reddit.com/r/selfhosted) - discussion of software and home servers
