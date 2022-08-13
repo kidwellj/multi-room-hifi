@@ -3,9 +3,14 @@
 Following are (work in progress!) build details for my DIY multi-room hifi system. I've tried a fair number of possible builds and settled on the following:
 
 # Software:
-- logitech media server [via docker](https://hub.docker.com/r/lmscommunity/logitechmediaserver)
-- home asisstant using the [Squeezebox integration](https://www.home-assistant.io/integrations/squeezebox/)
+- Logitech Media Server [via docker](https://hub.docker.com/r/lmscommunity/logitechmediaserver)
+- [Navidrome](https://www.navidrome.org/) which replaced my original install of airsonic which I abandoned because it's ugly and memory inefficient.
+- Home Assistant using the [Squeezebox integration](https://www.home-assistant.io/integrations/squeezebox/)
 - [esp32-squeezelite](https://github.com/sle118/squeezelite-esp32) and [piCorePlayer](https://docs.picoreplayer.org/getting-started/) clients
+
+To get a sense of the broader setup I'm runing, you can read about it [here](https://github.com/kidwellj/victorian-smarthome).
+
+It's worth noting that this isn't my final server configuration. I don't have a good solution for audiobooks, and I'll likely switch to Roon when I can afford to purchase the software. In the meantime, I am watching the jellyfin project closely to see if it can become as viable as Plex is for many people as a media server sharing music.
 
 # Devices:
 
@@ -42,11 +47,11 @@ Music plays on a [Raspberry Pi](https://www.raspberrypi.com/products/raspberry-p
 
 - I've tried running this device using [Volumio 3](https://volumio.com/en/volumio-3) and [Mopidy](https://mopidy.com/) (in June-July 2022). I found both of these platforms to be overly complex and unstable as music players so eventually settled on LMS friendly piCorePlayer.
 
-## Living Room (total cost = £25.50)
+## Living Room (total cost = £26.50 + case)
 
 For our front room, I've built a DIY sonos-style player. This uses a 35W TDA8932 BTL Mono Amplifier Board (this cost £5) which powers a single Cambridge Audio S20 speaker which I got used for £10 running in mono (for obvious reasons). 
 
-We stream audio to this amplifier using a simple ESP32 WROVER Development Board (an Lilygo TTGO T8 v1.8 board) running esp32-squeezelite client software which connects to the amp using a £4 PCM5102 DAC. The reason I've gone for separate DAC/Amp boards in this setup is because there are very few amplifier boards with a build-in DAC chip, and this really limits your overall options. I'm aware that there are many projects out there using a board like the 3W MAX98357 ([like here](https://circuitdigest.com/microcontroller-projects/esp32-based-internet-radio-using-max98357a-i2s-amplifier-board) and here), but at this point I think going with separate boards is the best approach. I've drawn on the terrific [SqueezeAMP project](https://github.com/philippe44/SqueezeAMP) for this design.
+We stream audio to this amplifier using a simple ESP32 WROVER Development Board (an Lilygo TTGO T8 v1.8 board) running esp32-squeezelite client software which connects to the amp using a £4 PCM5102 DAC. The reason I've gone for separate DAC/Amp boards in this setup is because there are very few amplifier boards with a build-in DAC chip, and this really limits your overall options. I'm aware that there are many projects out there using a board like the 3W MAX98357 ([like here](https://circuitdigest.com/microcontroller-projects/esp32-based-internet-radio-using-max98357a-i2s-amplifier-board) and here), but at this point I think going with separate boards is the best approach. I've drawn on the terrific [SqueezeAMP project](https://github.com/philippe44/SqueezeAMP) for some elements of my design.
 
 For this build, I found @schreibfaul1's [repository quite helpful](https://github.com/schreibfaul1/ESP32-audioI2S/wiki). There are a fair few youtube videos out there detailing the build as well. 
 
@@ -64,25 +69,35 @@ Connect the following pins between the TTGO T8 ESP32 board and your I2S DAC:
 
 ![Schematic for wiring](https://github.com/schreibfaul1/ESP32-audioI2S/raw/master/additional_info/ESP32_I2S_PCM5102A_ONLY.JPG)
 
-Next wire up your TDA8932. This is a bit simpler:
+Next wire up the amplifier (TDA8932). This is a bit simpler:
 
 1. The power pins can go to a DC converter. I re-used one from an old laptop. Optimum is 24V at 2amp. See note below re: DC power.
-2. I wired input via two short wires to the PCM5102 board coming off a 3.5mm adapter
-3. Then I soldered on two wires which connect to speaker terminals
+2. I wired input via (just) two short wires to the PCM5102 board which has spaces for wired out labelled "G R G L" (or sometimes just R G L with a shared Neutral wire). Note I'm not using the 3.5mm adapter here because I need mono for this amplifier board, this also means that I've skipped the G/R connection points. *
+3. Then I soldered on two wires which connect to speaker terminals from the amplifier audio out points.
 
-Flash your ESP32 using the same process detailed above, and you're all set!
+Note: I've drawn a lot of this information from a really helpful discussion amidst experts on [diyaudio forums](https://www.diyaudio.com/community/threads/should-i-use-a-laptop-ac-adapter-as-psu-for-my-first-diy-class-d.389171/#post-7094448).*
 
-### DC Power
+### Adding DC Power for the amplifier
 
 Sourcing, hacking and making power supplies (PSU) for audio devices is a whole art unto itself. I usually keep a box full of discarded AC adapters from old electronics around the house. This is sifted by voltage, there are low voltage 3.3 or 5V adapters for cell phones and the like with similarly low amperage/wattage ratings. Then there are the bigger "bricks" taken from laptop power adapters, which range up to 90V or even 110V in some cases. There is a whole community around repurposing [old computer power supplies](https://www.instructables.com/Encyclopedia-of-ATX-to-Bench-Power-Supply-Conversi/) as well. This amplifier is small, but it does require some power, so I went with the laptop power brick. This has more power than the amp needs, with the Lenovo PSU I found supplying 90W at 20V or about 4.5A. I only need 2A at 20V, so was wondering if I could bridge over another power wire to USB micro for my ESP32 and save myself a cord. This isn't current sharing, strictly speaking, because I want two different voltages: 3.3V for the ESP32 and as close to 24V as I can get for the amp. So I've aquired a
-couple DC-DC converters to connect to this PSU (via a barrel adapter). This is still WIP, so I'll report back when I've got things up and running.
+couple DC-DC converters to connect to this PSU (via a barrel adapter). There are two ways to wire up this setup:
+
+(1) Simply wire your 20-24V laptop PSU straight to the amplifier AND run a separate power lead via a USB charger to the ESP32
+
+(2) Split the power coming in from your PSU to both. 
+
+This second option is more elegant, but also a lot more complicated. You need to reduce the voltage for your ESP32 carefully so you don't fry it. I haven't run this solution yet, but you can view the conversation on DIY Audio if you want to get a sense of how it will probably go.
+
+### Software Installation:
+
+Flash your ESP32 using the same process detailed above, and you're all set!
 
 # Future plans:
 
 - Buy and deploy a Roon server
 - Deploy [HQPlayer](https://audiobacon.net/2021/03/17/hqplayer-better-than-a-5000-upscaler/)
-- 
-- 
+- Get a used Denon receiver with Ethernet connectivity to swap in on the Living Room
+
 # Resources:
 
 As I've been going along, I've found some pretty helpful resources on the internet. So if you're also planning on diving into DIY Audio, here are the sources I'd recommend:
