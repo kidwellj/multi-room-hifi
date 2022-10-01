@@ -1,0 +1,49 @@
+begin
+  remote = Apple_A1156
+  button = KEY_UP
+  repeat = 0
+  prog = squeezelite
+  config = volup
+end
+
+begin
+  remote = Apple_A1156
+  button = KEY_DOWN
+  repeat = 0
+  prog = squeezelite
+  config = voldown
+end
+
+begin
+  remote = Apple_A1156
+  button = KEY_LEFT
+  repeat = 0
+  prog = squeezelite
+  config = rew
+end
+
+begin
+  remote = Apple_A1156
+  button = KEY_RIGHT
+  repeat = 0
+  prog = squeezelite
+  config = fwd
+end
+
+# the A1156 lircd.conf maps ">||" (center button) to KEY_PAUSE
+begin
+  remote = Apple_A1156
+  button = KEY_PAUSE
+  repeat = 0
+  prog = squeezelite
+  config = pause
+end
+
+# The "menu" key does power
+begin
+  remote = Apple_A1156
+  button = KEY_ESC
+  repeat = 0
+  prog = squeezelite
+  config = power
+end

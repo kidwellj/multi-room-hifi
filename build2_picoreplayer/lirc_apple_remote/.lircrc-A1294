@@ -1,0 +1,56 @@
+begin
+  remote = Apple_A1294
+  button = KEY_UP
+  repeat = 0
+  prog = squeezelite
+  config = volup
+end
+
+begin
+  remote = Apple_A1294
+  button = KEY_DOWN
+  repeat = 0
+  prog = squeezelite
+  config = voldown
+end
+
+begin
+  remote = Apple_A1294
+  button = KEY_LEFT
+  repeat = 0
+  prog = squeezelite
+  config = rew
+end
+
+begin
+  remote = Apple_A1294
+  button = KEY_RIGHT
+  repeat = 0
+  prog = squeezelite
+  config = fwd
+end
+
+begin
+  remote = Apple_A1294
+  button = KEY_OK
+  repeat = 0
+  prog = squeezelite
+  config = pause
+end
+
+# The "menu" key does power
+begin
+  remote = Apple_A1294
+  button = KEY_ESC
+  repeat = 0
+  prog = squeezelite
+  config = power
+end
+
+begin
+  remote = Apple_A1294
+  button = KEY_PLAY
+  repeat = 0
+  prog = squeezelite
+  config = play
+end
