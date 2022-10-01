@@ -3,6 +3,7 @@
 Following are (work in progress!) build details for my DIY multi-room hifi system. I've tried a fair number of possible builds and settled on the following:
 
 # Software:
+
 - Logitech Media Server [via docker](https://hub.docker.com/r/lmscommunity/logitechmediaserver)
 - [Jellyfin](https://jellyfin.org/docs/general/server/media/music.html) media server / with [Finamp](https://github.com/jmshrv/finamp) iPhone client - Note: my original music server for mobile devices was airsonic. Based on UX issues and inefficient memory use, I swapped to the much prettier [Navidrome](https://www.navidrome.org/), however navidrome lacks multiple libraries as a feature. Meanwhile, music support on jellyfin has improved dramatically, and now with a few good mobile clients in beta, I was happy to drop this all in favour of jellyfin.
 - [Audiobookshelf](https://github.com/advplyr/audiobookshelf) for podcasts and audiobooks
@@ -17,7 +18,7 @@ It's worth noting that this isn't my final server configuration. I'm very happy 
 
 ## Server
 
-Music library and server-side applications are on a debian server running inside a Proxmox hypervisor
+Music library and server-side applications are on a debian server running inside a [Proxmox hypervisor](https://github.com/kidwellj/victorian-smarthome#1-home-server)
 
 ## Kitchen (total cost = £20)
 
