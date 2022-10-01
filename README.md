@@ -44,10 +44,10 @@ Now for the main event
 
 ## Dining Room (total cost = £110)
 
-Music plays on a [Raspberry Pi](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/) which cost £36 and an [IQAudio DigiAmp+ board](https://www.raspberrypi.com/products/iqaudio-digiamp-plus/) which cost £30. This device runs [piCorePlayer](https://docs.picoreplayer.org/getting-started/) which runs as an LMS client. The device also has a rotary encoder (KY-040), 128X64 Pixel OLED display (SSD1306) and an IR receiver (TSOP38238) which I use with an old apple remote. This is a pretty nice little Class D amplifier, running full-HD 192kHz / 24bit audio at 2x35w, which powers a set of Wharfedale 9.1 speakers I picked up used for £50. 
+Music plays on a [Raspberry Pi](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/) which cost £36 and an [IQAudio DigiAmp+ board](https://www.raspberrypi.com/products/iqaudio-digiamp-plus/) which cost £30. This device runs [piCorePlayer](https://docs.picoreplayer.org/getting-started/) which runs as an LMS client. The device also has a rotary encoder (KY-040), 128X64 Pixel OLED display (SSD1306) and an IR receiver (TSOP38238) which I use with an old apple remote. This is a pretty nice little Class D amplifier, running full-HD 192kHz / 24bit audio at 2x35w, which powers a set of Wharfedale 9.1 speakers I picked up used for £50.
 
+- You can find a useful pinout reference for this board [here](https://pinout.xyz/pinout/pi_digiamp#).
 - You can find instructions on adding in an IR receiver via [piCorePlayer documentation](https://docs.picoreplayer.org/projects/add-an-ir-receiver/) and also a useful blog post [here](https://smarthome.exposed/infrared-remote-for-hifiberry/). If you're using an apple remote like I am, you'll need to upload the custom `lircd.conf-A1156` file which I've included in this repository.
-
 - Note: I've tried running this device using [Volumio 3](https://volumio.com/en/volumio-3) and [Mopidy](https://mopidy.com/) (in June-July 2022). I found both of these platforms to be overly complex and unstable as music players so eventually settled on LMS friendly piCorePlayer. I have never experienced any performance problems with this platform, which streams FLAC files over wifi without any difficulties.
 
 ## Living Room (total cost = £26.50 + case)
@@ -56,6 +56,8 @@ For our front room, I've built a DIY sonos-style player which streams via wifi t
 
 I've gone with a Raspberry Pi Zero 2W board (£15) paired with the same IQAudio DigiAmp+ board I used in the Dining Room above. Flashed with piCorePlayer, it JustWorks(TM). While this board takes quite a lot longer to boot than my Pi4B, closer to 30 seconds, once it's up and running performance is seamless. I've pushed full FLAC streaming with no delays, jitter, or gaps in playback.
 
+- You can find a useful pinout reference for this board [here](https://pinout.xyz/pinout/pi_digiamp#).
+- 
 Note: I'm planning to get a set of Wharfedale Diamond 10 speakers later next year and will power this system using a used Denon AVR-2312 (these run £50-150) which is compatible with Home Asssitant and Logitech Media Server as an endpoint for audio streaming. When this upgrade is complete, I'll be moving this little streamer to the library.
 
 *In case you're interested, here's the details of my failed first try:*
