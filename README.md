@@ -4,13 +4,14 @@ Following are (work in progress!) build details for my DIY multi-room hifi syste
 
 # Software:
 - Logitech Media Server [via docker](https://hub.docker.com/r/lmscommunity/logitechmediaserver)
-- [Navidrome](https://www.navidrome.org/) which replaced my original install of airsonic which I abandoned because it's ugly and memory inefficient.
+- [Jellyfin](https://jellyfin.org/docs/general/server/media/music.html) media server / with [Finamp](https://github.com/jmshrv/finamp) iPhone client - Note: my original music server for mobile devices was airsonic. Based on UX issues and inefficient memory use, I swapped to the much prettier [Navidrome](https://www.navidrome.org/), however navidrome lacks multiple libraries as a feature. Meanwhile, music support on jellyfin has improved dramatically, and now with a few good mobile clients in beta, I was happy to drop this all in favour of jellyfin.
+- [Audiobookshelf](https://github.com/advplyr/audiobookshelf) for podcasts and audiobooks
 - Home Assistant using the [Squeezebox integration](https://www.home-assistant.io/integrations/squeezebox/)
 - [esp32-squeezelite](https://github.com/sle118/squeezelite-esp32) and [piCorePlayer](https://docs.picoreplayer.org/getting-started/) clients
 
-To get a sense of the broader setup I'm runing, you can read about it [here](https://github.com/kidwellj/victorian-smarthome).
+To get a sense of the broader network and hardware setup I'm running in the house, you can read about it [here](https://github.com/kidwellj/victorian-smarthome).
 
-It's worth noting that this isn't my final server configuration. I don't have a good solution for audiobooks, and I'll likely switch to Roon when I can afford to purchase the software. In the meantime, I am watching the jellyfin project closely to see if it can become as viable as Plex is for many people as a media server sharing music.
+It's worth noting that this isn't my final server configuration. I'm very happy with the improvements offered by audiobookshelf and finamp, but I do dream of switching to Roon when I can afford to purchase the software. I'm aware that many other people use Plex, but I think Jellyfin, which is properly open source, now has feature parity on the things that are important to me.
 
 # Devices:
 
@@ -20,15 +21,15 @@ Music library and server-side applications are on a debian server running inside
 
 ## Kitchen (total cost = £20)
 
-Music is playing on a [Roberts Radio](https://www.robertsradio.com/en-gb/retro) via an a1s model esp32-audio-kit (£16) board which is running [esp32-squeezelite](https://ale.cx/ALEX/2021/01/esp32-audio-kit-with-squeezelite-esp32/) which provides digital to analog conversion and output to the Roberts radio using a 3.5mm stereo plug and gets power from the Roberts radio via the hidden USB port inside. This device supports direct streaming via airplay, bluetooth or as an LMS client. 
+Music is playing on a [Roberts Radio](https://www.robertsradio.com/en-gb/retro) via an a1s model [esp32-audio-kit](https://amzn.to/3fB4JsA) (£16 via aliexpress, £25-30 on amazon/ebay UK) board which is running [esp32-squeezelite](https://ale.cx/ALEX/2021/01/esp32-audio-kit-with-squeezelite-esp32/) which provides digital to analog conversion and output to the Roberts radio using a 3.5mm stereo plug and gets power from the Roberts radio via the hidden USB port inside. This device supports direct streaming via airplay, bluetooth or as an LMS client. 
 
-Roberts now sells units which support bluetooth streaming, but this is fairly limited functionality and unnecessarily expensive. Rather than getting a new unit, I "upgraded" this old radio and it works great!
+Roberts now sells units which support bluetooth streaming, but this is fairly limited functionality and unnecessarily expensive. Rather than getting a new unit, I "upgraded" this old radio and it works great! If you're interested, you can easily get an old Roberts radio on ebay for £20-30.
 
 ### Installation process:
 
 h/t to [Damian Darfdas for writing up a howto](https://screenzone.eu/esp32-squeezelite-on-esp32-audio-kit/) that I followed for this process.
 
-Possible prerequisite steps:
+Possible prerequisite steps (for Mac laptop, in my case):
 1. Install [python3](https://www.python.org/downloads/)
 2. Install esptool
 3. Erase the flash memory on your device: `esptool.py erase_flash` with a h/t for tip here: (https://esp32.com/viewtopic.php?t=11439).
@@ -43,17 +44,23 @@ Now for the main event
 
 ## Dining Room (total cost = £110)
 
-Music plays on a [Raspberry Pi](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/) which cost £36 and an [IQAudio DigiAmp+ board](https://www.raspberrypi.com/products/iqaudio-digiamp-plus/) which cost £30. This device runs [piCorePlayer](https://docs.picoreplayer.org/getting-started/) which runs as an LMS client. The device also has a rotary encoder (KY-040), 128X64 Pixel OLED display (SSD1306) and an IR receiver which I use with an old apple remote. This is a pretty nice little Class D amplifier, running full-HD 192kHz / 24bit audio at 2x35w, which powers a set of Wharfedale 9.1 speakers I picked up used for £50
+Music plays on a [Raspberry Pi](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/) which cost £36 and an [IQAudio DigiAmp+ board](https://www.raspberrypi.com/products/iqaudio-digiamp-plus/) which cost £30. This device runs [piCorePlayer](https://docs.picoreplayer.org/getting-started/) which runs as an LMS client. The device also has a rotary encoder (KY-040), 128X64 Pixel OLED display (SSD1306) and an IR receiver (TSOP38238) which I use with an old apple remote. This is a pretty nice little Class D amplifier, running full-HD 192kHz / 24bit audio at 2x35w, which powers a set of Wharfedale 9.1 speakers I picked up used for £50. 
 
-- I've tried running this device using [Volumio 3](https://volumio.com/en/volumio-3) and [Mopidy](https://mopidy.com/) (in June-July 2022). I found both of these platforms to be overly complex and unstable as music players so eventually settled on LMS friendly piCorePlayer.
+- You can find instructions on adding in an IR receiver via [piCorePlayer documentation](https://docs.picoreplayer.org/projects/add-an-ir-receiver/) and also a useful blog post [here](https://smarthome.exposed/infrared-remote-for-hifiberry/). If you're using an apple remote like I am, you'll need to upload the custom `lircd.conf-A1156` file which I've included in this repository.
+
+- Note: I've tried running this device using [Volumio 3](https://volumio.com/en/volumio-3) and [Mopidy](https://mopidy.com/) (in June-July 2022). I found both of these platforms to be overly complex and unstable as music players so eventually settled on LMS friendly piCorePlayer. I have never experienced any performance problems with this platform, which streams FLAC files over wifi without any difficulties.
 
 ## Living Room (total cost = £26.50 + case)
 
-For our front room, I've built a DIY sonos-style player. This uses a 35W TDA8932 BTL Mono Amplifier Board (this cost £5) which powers a single Cambridge Audio S20 speaker which I got used for £10 running in mono (for obvious reasons). 
+For our front room, I've built a DIY sonos-style player which streams via wifi to a single Cambridge Audio S20 speaker which I got used for £10 running in mono (for obvious reasons). 
 
-We stream audio to this amplifier using a simple ESP32 WROVER Development Board (an Lilygo TTGO T8 v1.8 board) running esp32-squeezelite client software which connects to the amp using a £4 PCM5102 DAC. The reason I've gone for separate DAC/Amp boards in this setup is because there are very few amplifier boards with a build-in DAC chip, and this really limits your overall options. I'm aware that there are many projects out there using a board like the 3W MAX98357 ([like here](https://circuitdigest.com/microcontroller-projects/esp32-based-internet-radio-using-max98357a-i2s-amplifier-board) and here), but at this point I think going with separate boards is the best approach. I've drawn on the terrific [SqueezeAMP project](https://github.com/philippe44/SqueezeAMP) for some elements of my design.
+I've gone with a Raspberry Pi Zero 2W board (£15) paired with the same IQAudio DigiAmp+ board I used in the Dining Room above. Flashed with piCorePlayer, it JustWorks(TM). While this board takes quite a lot longer to boot than my Pi4B, closer to 30 seconds, once it's up and running performance is seamless. I've pushed full FLAC streaming with no delays, jitter, or gaps in playback.
 
-For this build, I found @schreibfaul1's [repository quite helpful](https://github.com/schreibfaul1/ESP32-audioI2S/wiki). There are a fair few youtube videos out there detailing the build as well. 
+Note: I'm planning to get a set of Wharfedale Diamond 10 speakers later next year and will power this system using a used Denon AVR-2312 (these run £50-150) which is compatible with Home Asssitant and Logitech Media Server as an endpoint for audio streaming. When this upgrade is complete, I'll be moving this little streamer to the library.
+
+*In case you're interested, here's the details of my failed first try:*
+
+my original goal was to try my hand at a DIY DAC/Amp configuration using a 35W TDA8932 BTL Mono Amplifier Board (this cost £5 via aliexpress) and a £4 (also aliexpress) PCM5102 DAC. The reason I went for separate DAC/Amp boards in this setup was because there are very few amplifier boards with a build-in DAC chip, and this really limits your overall options. Esp32-squeezelite software requires an ESP32 WROVER Development Board, as it needs at least 4MB PRAM to run and WROOM boards aren't enough. In my case, I went with a Lilygo TTGO T8 v1.8 board.  I'm aware that there are many projects out there using a board like the 3W MAX98357 ([like here](https://circuitdigest.com/microcontroller-projects/esp32-based-internet-radio-using-max98357a-i2s-amplifier-board)), but I still think that going with separate boards is the best approach. I've drawn on the terrific [SqueezeAMP project](https://github.com/philippe44/SqueezeAMP) for some elements of my design. For this build, I found @schreibfaul1's [repository quite helpful](https://github.com/schreibfaul1/ESP32-audioI2S/wiki). There are a fair few youtube videos out there detailing the build as well. However, try as I might, I couldn't get squeezelite-esp32 to flash on the board. I tried a second esp32 WROVER board as well to no avail. I gather that there are a number of different components to the bootloader so flashing needs to be done in steps sometimes, but had to hit pause on this attempt as I was getting nowhere. Details below in case anyone else wants to try and succeed where I failed to get it running!
 
 ### Wiring the device
 
@@ -88,9 +95,19 @@ couple DC-DC converters to connect to this PSU (via a barrel adapter). There are
 
 This second option is more elegant, but also a lot more complicated. You need to reduce the voltage for your ESP32 carefully so you don't fry it. I haven't run this solution yet, but you can view the conversation on DIY Audio if you want to get a sense of how it will probably go.
 
+
+
 ### Software Installation:
 
 Flash your ESP32 using the same process detailed above, and you're all set!
+
+# Notes:
+
+## Flashing ESP32
+
+It's worth noting that while flashing ESP32 devices can be really easy, sometimes it can be quite tricky. The ESP32 actually has its storage divided into several partitions and goes through a series of boot loading, first a simple partition and then subsequent boot processes are loaded. Some software flashing only replaces later Boot process stages. It's also the case that certain builds of the ESP32 can be more difficult to get into a ROM flashing mode. Usually if your ESP32 has a reset and a boot button (wired to pins GPIO0 and GPIO2) then you can hold these down to enter a rom flashing state. But some devices (like the lilygo T8 board I use above) only has a boot button, so you will need to manually bridge the pins with a resistor to "pull low" at 10k ohms or less which will also trigger a rom flashing state.
+
+It is also a bit annoying to find the serial device for USB on MacOS. For reference, the command `ls -lha /dev/tty*|grep modem` will give you the device ID once it is plugged in, and you can use this with esptool.py.
 
 # Future plans:
 
@@ -110,3 +127,4 @@ As I've been going along, I've found some pretty helpful resources on the intern
 - [AudioScience Review Forums](https://www.audiosciencereview.com) - seriously exacting standards in terms of audio quality, good discussion on the underlying factors in device performance
 - [DIY Budget Audio blog](https://diybudgetaudio.com)
 - [R/Selfhosted reddit feed](https://www.reddit.com/r/selfhosted) - discussion of software and home servers
+- [Raspiaudio Forums](https://forum.raspiaudio.com/) a bit like the slimdevices forum, but more folks coming from RPi and ESP to LMS.
