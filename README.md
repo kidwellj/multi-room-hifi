@@ -53,7 +53,7 @@ Music plays on a [Raspberry Pi](https://www.raspberrypi.com/products/raspberry-p
 
 - Note: I've tried running this device using [Volumio 3](https://volumio.com/en/volumio-3) and [Mopidy](https://mopidy.com/) (in June-July 2022). I found both of these platforms to be overly complex and unstable as music players so eventually settled on LMS friendly piCorePlayer. I have never experienced any performance problems with this platform, which streams FLAC files over wifi without any difficulties.
 
-## Living Room (total cost = £26.50 + case)
+## Living Room (total cost = £45 + cheap case)
 
 For our front room, I've built a DIY sonos-style player which streams via wifi to a single Cambridge Audio S20 speaker which I got used for £10 running in mono (for obvious reasons). 
 
@@ -61,7 +61,7 @@ I've gone with a Raspberry Pi Zero 2W board (£15) paired with the same IQAudio 
 
 - You can find a useful pinout reference for this board [here](https://pinout.xyz/pinout/pi_digiamp#).
 
-- Note: I'm planning to get a set of Wharfedale Diamond 10 speakers later next year and will power this system using a used Denon AVR-2312 (these run £50-150) which is compatible with Home Asssitant and Logitech Media Server as an endpoint for audio streaming. When this upgrade is complete, I'll be moving this little streamer to the library.
+- Future upgrade note: I'm planning to get a set of Wharfedale Diamond 10 speakers later next year and will power this system using a used Denon AVR-2312 (these run £50-150) which is compatible with Home Asssitant and Logitech Media Server as an endpoint for audio streaming. When this upgrade is complete, I'll be moving this little streamer to the library.
 
 *In case you're interested, here's the details of my failed first try:*
 
